@@ -1,11 +1,6 @@
 <template>
   <div>Connected: {{ connects }}, Disconnected: {{ disconnects }}</div>
   <div ref="terminal" id="terminal"></div>
-  <!-- div v-for="(event, index) in hidMessage" :key="index">
-    {{ event.timestamp }} {{ event.device.manufacturer }}/{{
-      event.device.product
-    }}: {{ event.text }}
-  </div-->
 </template>
 
 <script lang="ts">
