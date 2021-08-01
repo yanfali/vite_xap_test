@@ -3,20 +3,21 @@
   <button class="btn btn-primary" @click="count++">
     count is: {{ count }}
   </button>
+  <HidListen />
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive, toRefs } from "vue";
-import NavBar from "./NavBar.vue";
-import { TabConfig } from "./NavBar.vue";
+import { ref, defineComponent } from 'vue';
+import NavBar, { TabConfig } from './NavBar.vue';
+import HidListen from './HidListen.vue';
 export default defineComponent({
-  name: "XapClient",
+  name: 'XapClient',
   setup: () => {
     const count = ref(0);
     const tabconfigs = ref([
-      { displayText: "Firmware Flashing", hasCount: false },
-      { displayText: "Keymap Configuration", hasCount: false },
-      { displayText: "Console Output", hasCount: true, count, active: true },
+      { displayText: 'Firmware Flashing', hasCount: false },
+      { displayText: 'Keymap Configuration', hasCount: false },
+      { displayText: 'Console Output', hasCount: true, count, active: true },
     ] as Array<TabConfig>);
 
     function updateTabConfigs(index: number) {
@@ -31,6 +32,7 @@ export default defineComponent({
   },
   components: {
     NavBar,
+    HidListen,
   },
 });
 </script>

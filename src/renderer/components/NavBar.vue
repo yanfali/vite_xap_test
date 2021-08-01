@@ -20,10 +20,10 @@ export interface TabConfig {
   count?: number; // current count
   active?: boolean; // is active
 }
-import { ref, defineComponent } from "vue";
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: "NavBar",
-  emits: ["tabChangeEvent"],
+  name: 'NavBar',
+  emits: ['tabChangeEvent'],
   props: {
     configs: {
       type: Array,

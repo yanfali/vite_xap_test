@@ -4,6 +4,11 @@ const usbDetect = require('usb-detection');
 const HIDW = require('./node-hid-wrapper');
 
 class HIDDevices extends EventEmitter {
+  /**
+   *
+   * @param {number} maxProbeCount
+   * @param {number} probeDelay
+   */
   constructor(maxProbeCount = 10, probeDelay = 100) {
     super();
     this.started = false;
@@ -99,6 +104,11 @@ class HIDDevices extends EventEmitter {
 }
 
 class HIDDevice extends EventEmitter {
+  /**
+   *
+   * @param {HIDDevices} d
+   * @param {boolean} listenForData
+   */
   constructor(d, listenForData) {
     super();
     this.info = d;
@@ -137,6 +147,13 @@ class HIDDevice extends EventEmitter {
 }
 
 class HIDDeviceFilter extends EventEmitter {
+  /**
+   *
+   * @param {HIDDevices} hid_devices
+   * @param {number} usagePage
+   * @param {number} usageId
+   * @param {boolean} listenForData
+   */
   constructor(hid_devices, usagePage, usageId, listenForData) {
     super();
     this.usage_page = usagePage;
@@ -194,12 +211,29 @@ class HIDDeviceFilter extends EventEmitter {
   }
 }
 
-module.exports = class {
-  static Create(maxProbeCount = 10, probeDelay = 100) {
-    return new HIDDevices(maxProbeCount, probeDelay);
-  }
+/**
+ * Create a HIDDevices object
+ * @param {number} maxProbeCount
+ * @param {number} probeDelay
+ * @returns HIDDevices
+ */
+function Create(maxProbeCount = 10, probeDelay = 100) {
+  return new HIDDevices(maxProbeCount, probeDelay);
+}
 
-  static DeviceFilter(hid_devices, usagePage, usageId, listenForData = false) {
-    return new HIDDeviceFilter(hid_devices, usagePage, usageId, listenForData);
-  }
+/**
+ * Create a HIDDevices Filter
+ * @param {HIDDevices} hid_devices
+ * @param {number} usagePage
+ * @param {number} usageId
+ * @param {boolean} listenForData
+ * @returns HIDDeviceFilter
+ */
+function DeviceFilter(hid_devices, usagePage, usageId, listenForData = false) {
+  return new HIDDeviceFilter(hid_devices, usagePage, usageId, listenForData);
+}
+
+module.exports = {
+  Create: Create,
+  DeviceFilter: DeviceFilter,
 };

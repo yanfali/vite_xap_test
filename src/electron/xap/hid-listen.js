@@ -48,8 +48,8 @@ class HIDListen extends EventEmitter {
 }
 
 /**
- * 
- * @param {HIDDevices} hid_devices 
+ *
+ * @param {HIDDevices} hid_devices
  * @returns {HIDListen}
  */
 module.exports = function createListener(hid_devices) {
