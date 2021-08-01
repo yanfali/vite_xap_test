@@ -1,6 +1,7 @@
 <template>
   <div class="tabs" id="navbar">
     <a
+      @click="$emit('tabChangeEvent', index)"
       v-for="(tab, index) in tabs"
       :key="index"
       class="tab tab-bordered"
@@ -22,6 +23,7 @@ export interface TabConfig {
 import { ref, defineComponent } from "vue";
 export default defineComponent({
   name: "NavBar",
+  emits: ["tabChangeEvent"],
   props: {
     configs: {
       type: Array,
