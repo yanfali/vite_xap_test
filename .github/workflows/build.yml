@@ -34,7 +34,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           sudo apt update
-          sudo apt install libudev-dev
+          sudo apt install libudev-dev libusb-dev
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
@@ -44,21 +44,21 @@ jobs:
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
 
-      - name: "Upload macOS artifact"
+      - name: 'Upload macOS artifact'
         if: ${{ matrix.os == 'macos-latest' }}
         uses: actions/upload-artifact@v2
         with:
           name: QMK-XAP_macOS.dmg.zip
           path: dist_electron/QMK XAP*.dmg
 
-      - name: "Upload Linux artifact"
+      - name: 'Upload Linux artifact'
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v2
         with:
           name: QMK-XAP_Linux.AppImage.zip
           path: dist_electron/QMK XAP*.AppImage
 
-      - name: "Upload Windows artifact"
+      - name: 'Upload Windows artifact'
         if: ${{ matrix.os == 'windows-latest' }}
         uses: actions/upload-artifact@v2
         with:
