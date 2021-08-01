@@ -10,6 +10,7 @@ try {
 
 const HIDDevices = require('./xap/hid-devices');
 const HIDListen = require('./xap/hid-listen');
+let mainWindow;
 
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
@@ -25,21 +26,21 @@ const hid_devices = HIDDevices.Create();
 const hid_listen = HIDListen(hid_devices);
 
 hid_listen.on('connect', function (d) {
-  ipcMain.callRenderer(win, 'hid_listen-connect', {
+  ipcMain.callRenderer(mainWindow, 'hid_listen-connect', {
     device: d,
     timestamp: new Date(),
   });
 });
 
 hid_listen.on('disconnect', function (d) {
-  ipcMain.callRenderer(win, 'hid_listen-disconnect', {
+  ipcMain.callRenderer(mainWindow, 'hid_listen-disconnect', {
     device: d,
     timestamp: new Date(),
   });
 });
 
 hid_listen.on('text', function (d, text) {
-  ipcMain.callRenderer(win, 'hid_listen-text', {
+  ipcMain.callRenderer(mainWindow, 'hid_listen-text', {
     device: d,
     timestamp: new Date(),
     text: text,
@@ -67,7 +68,7 @@ function createWindow() {
   });
 
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     x: mainWindowState.x,
     y: mainWindowState.y,
     width: mainWindowState.width,

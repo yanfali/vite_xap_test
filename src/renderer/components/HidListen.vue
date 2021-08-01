@@ -16,6 +16,7 @@ export default defineComponent({
     const disconnects = ref(0);
     const hidMessage: Ref<Array<any>> = ref([]);
     onMounted(() => {
+      console.log(window.ipc);
       window.ipc.answerMain(
         'hid_listen-connect',
         (event: HidConnectionEvent) => {
