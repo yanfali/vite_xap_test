@@ -10,7 +10,6 @@
     "appId": "fm.qmk.qmk-xap",
     "productName": "QMK XAP",
     "copyright": "Copyright © 2021 QMK",
-    "npmRebuild": true,
     "publish": {
       "provider": "github"
     },
@@ -47,20 +46,24 @@
     }
   },
   "scripts": {
-    "dev": "vite",
+    "modules": "yarn run electron-rebuild",
+    "serve": "vite",
+    "dev": "yarn modules && yarn serve",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview",
     "electron": "wait-on tcp:3000 && cross-env IS_DEV=true electron .",
     "electron:pack": "electron-builder --dir",
     "electron:dev": "concurrently -k \"cross-env BROWSER=none yarn dev\" \"yarn electron\"",
     "electron:builder": "electron-builder",
-    "build:for:electron": "vue-tsc --noEmit && cross-env ELECTRON=true vite build",
+    "build:for:electron": "vue-tsc --noEmit && cross-env ELECTRON=true vite build && yarn run electron-rebuild",
     "app:build": "yarn build:for:electron && yarn electron:builder"
   },
   "dependencies": {
     "daisyui": "^1.10.0",
     "electron-better-ipc": "^2.0.1",
     "electron-window-state": "^5.0.3",
+    "node-hid": "^2.1.1",
+    "pino": "^6.13.0",
+    "usb-detection": "^4.10.0",
     "vue": "^3.0.5"
   },
   "devDependencies": {
@@ -70,8 +73,9 @@
     "babel-eslint": "^10.1.0",
     "concurrently": "^6.2.0",
     "cross-env": "^7.0.3",
-    "electron": "^13.1.7",
+    "electron": "^11.0.0",
     "electron-builder": "^22.11.7",
+    "electron-rebuild": "^2.3.5",
     "electron-reloader": "^1.2.1",
     "esbuild": "^0.12.17",
     "eslint": "^7.32.0",

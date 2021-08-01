@@ -14,8 +14,8 @@
           "regexp": ""
         },
         "background": {
-          "beginsPattern": "\\$ vite",
-          "endsPattern": "ready in \\d+ms"
+          "beginsPattern": ".*yarn run.*",
+          "endsPattern": ".*ready in \\d+ms\\."
         }
       }
     }
