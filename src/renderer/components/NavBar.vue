@@ -1,18 +1,33 @@
 <template>
   <div class="tabs" id="navbar">
-    <a class="tab tab-bordered">Firmware Flashing</a>
-    <a class="tab tab-bordered">Keymap Configuration</a>
-    <a class="tab tab-bordered tab-active"
-      >Console Output
-      <div class="indicator-item badge">8</div></a
-    >
+    <a v-for="(tab, index) in tabs" :key="index" class="tab tab-bordered"
+      >{{ tab.displayText }}
+      <div v-if="tab.hasCount" class="indicator-item badge">
+        {{ tab.count }}
+      </div>
+    </a>
   </div>
 </template>
-
 <script lang="ts">
-import { defineComponent } from "vue";
+export interface TabConfig {
+  displayText: string;
+  hasCount: boolean;
+  count?: number;
+  active?: boolean;
+}
+import { ref, defineComponent } from "vue";
 export default defineComponent({
   name: "NavBar",
+  props: {
+    configs: {
+      type: Array,
+      default: [],
+    },
+  },
+  setup(prop) {
+    const tabs: Array<TabConfig> = prop.configs as Array<TabConfig>;
+    return { tabs };
+  },
 });
 </script>
 
