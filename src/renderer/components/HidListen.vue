@@ -1,5 +1,5 @@
 <template>
-  <div>Connected: {{ connects }}, Disconnected: {{ disconnects }}</div>
+< <div>Connected: {{ connects }}, Disconnected: {{ disconnects }}</div>
   <div ref="terminal" id="terminal"></div>
 </template>
 
@@ -18,7 +18,17 @@ export default defineComponent({
       scrollback: 500,
     } as ITerminalOptions);
     onMounted(() => {
-      console.log(window.ipc);
+      function limitLinesTo(count: number) {
+        while (consoleEntries.value.length > count) {
+          consoleEntries.value.shift();
+        }
+      }
+      function push(text: string) {
+        console.log(text);
+        consoleEntries.value.push(text);
+        limitLinesTo(10);
+      }
+
       window.ipc.answerMain(
         'hid_listen-connect',
         (event: HidConnectionEvent) => {
@@ -52,9 +62,7 @@ export default defineComponent({
       }
     });
     return {
-      connects,
-      disconnects,
-      hidMessage,
+      consoleEntries,
     };
   },
 });
