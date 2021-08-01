@@ -34,7 +34,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           sudo apt update
-          sudo apt install libudev-dev libusb-dev
+          sudo apt install libudev-dev libusb-1.0.0-dev
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
