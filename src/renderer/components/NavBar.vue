@@ -1,6 +1,11 @@
 <template>
   <div class="tabs" id="navbar">
-    <a v-for="(tab, index) in tabs" :key="index" class="tab tab-bordered"
+    <a
+      @click="$emit('tabChangeEvent', index)"
+      v-for="(tab, index) in tabs"
+      :key="index"
+      class="tab tab-bordered"
+      :class="{ 'tab-active': tab.active }"
       >{{ tab.displayText }}
       <div v-if="tab.hasCount" class="indicator-item badge">
         {{ tab.count }}
@@ -10,14 +15,15 @@
 </template>
 <script lang="ts">
 export interface TabConfig {
-  displayText: string;
-  hasCount: boolean;
-  count?: number;
-  active?: boolean;
+  displayText: string; // text to display in UI
+  hasCount: boolean; // has a counter
+  count?: number; // current count
+  active?: boolean; // is active
 }
 import { ref, defineComponent } from "vue";
 export default defineComponent({
   name: "NavBar",
+  emits: ["tabChangeEvent"],
   props: {
     configs: {
       type: Array,

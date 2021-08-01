@@ -1,5 +1,5 @@
 <template>
-  <NavBar :configs="tabconfigs" />
+  <NavBar :configs="tabconfigs" @tab-change-event="updateTabConfigs" />
   <button class="btn btn-primary" @click="count++">
     count is: {{ count }}
   </button>
@@ -18,7 +18,16 @@ export default defineComponent({
       { displayText: "Keymap Configuration", hasCount: false },
       { displayText: "Console Output", hasCount: true, count, active: true },
     ] as Array<TabConfig>);
-    return { count, tabconfigs };
+
+    function updateTabConfigs(index: number) {
+      const active = tabconfigs.value.find((config) => config.active === true);
+      if (active) {
+        active.active = false;
+      }
+      tabconfigs.value[index].active = true;
+    }
+
+    return { count, tabconfigs, updateTabConfigs };
   },
   components: {
     NavBar,
